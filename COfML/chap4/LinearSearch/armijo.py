@@ -40,15 +40,14 @@ def main():
             plt.axvspan(start, _alpha, color=color, alpha=0.2)
             start = None
 
-        plt.plot(alpha, bound, label=r"$c_{1}=$" + r"${}$".format(c), color=color)
+        plt.plot(alpha, bound, color=color)
 
         plt.xlim(xmin, xmax)
         plt.ylim(ymin, ymax)
         plt.xlabel(r'$\alpha$')
         plt.ylabel(r'$\phi(\alpha)$')
-        plt.legend()
 
-        plt.savefig("figures/fig-linear-search_Armijo_c1={}.png".format(c), bbox_inches='tight')
+        plt.savefig("figures/fig-linear-search_Armijo_c1={}.png".format(c1), bbox_inches='tight')
         plt.close()
 
     # Total
@@ -60,7 +59,7 @@ def main():
     for c1, color in zip(c1_list, colors):
         bound = _phi(0) + c1 * alpha * phi.derivative(0)
 
-        plt.plot(alpha, bound, label=r"$c_{1}=$" + r"${}$".format(c), color=color)
+        plt.plot(alpha, bound, label=r"$c_{1}=$" + r"${}$".format(c1), color=color)
 
     plt.xlim(xmin, xmax)
     plt.ylim(ymin, ymax)
