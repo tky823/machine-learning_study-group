@@ -21,14 +21,14 @@ def main():
         plt.plot(alpha, phi_alpha, color='black')
         plt.scatter([0], [_phi(0)], color='black')
 
-        upper_bound = _phi(0) + c1 * alpha * phi.derivative(0)
+        upper_bound = _phi(0) + c1 * alpha * phi.grad(0)
         mask = (upper_bound >= phi_alpha)
         mask = mask.astype(np.int)
         is_boundary_c1 = mask[1:] - mask[:-1]
         is_boundary_c1 = is_boundary_c1.astype(np.bool)
 
-        lower_bound = c2 * phi.derivative(0)
-        mask = (phi.derivative() >= lower_bound)
+        lower_bound = c2 * phi.grad(0)
+        mask = (phi.grad() >= lower_bound)
         mask = mask.astype(np.int)
         is_boundary_c2 = mask[1:] - mask[:-1]
         is_boundary_c2 = is_boundary_c2.astype(np.bool)
@@ -74,14 +74,14 @@ def main():
         plt.plot(alpha, phi_alpha, color='black')
         plt.scatter([0], [_phi(0)], color='black')
 
-        upper_bound = _phi(0) + c1 * alpha * phi.derivative(0)
+        upper_bound = _phi(0) + c1 * alpha * phi.grad(0)
         mask = (upper_bound >= phi_alpha)
         mask = mask.astype(np.int)
         is_boundary_c1 = mask[1:] - mask[:-1]
         is_boundary_c1 = is_boundary_c1.astype(np.bool)
 
-        lower_bound = np.abs(c2 * phi.derivative(0))
-        mask = (np.abs(phi.derivative()) >= lower_bound)
+        lower_bound = c2 * np.abs(phi.grad(0))
+        mask = (np.abs(phi.grad()) >= lower_bound)
         mask = mask.astype(np.int)
         is_boundary_c2 = mask[1:] - mask[:-1]
         is_boundary_c2 = is_boundary_c2.astype(np.bool)
@@ -141,7 +141,7 @@ class Function:
 
         return scaled**4 - 4 * scaled**2 + scaled
 
-    def derivative(self, x=None, derivative_cum=1):
+    def grad(self, x=None, derivative_cum=1):
         if self.no_grad:
             raise ValueError("You are given `no_grad=True`.")
         if self.x is None:

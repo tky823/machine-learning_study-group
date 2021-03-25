@@ -20,7 +20,7 @@ def main():
         plt.plot(alpha, phi_alpha, color='black')
         plt.scatter([0], [_phi(0)], color='black')
 
-        bound = _phi(0) + c1 * alpha * phi.derivative(0)
+        bound = _phi(0) + c1 * alpha * phi.grad(0)
         mask = (bound >= phi_alpha)
         mask = mask.astype(np.int)
         is_boundary = mask[1:] - mask[:-1]
@@ -57,7 +57,7 @@ def main():
     plt.scatter([0], [_phi(0)], color='black')
 
     for c1, color in zip(c1_list, colors):
-        bound = _phi(0) + c1 * alpha * phi.derivative(0)
+        bound = _phi(0) + c1 * alpha * phi.grad(0)
 
         plt.plot(alpha, bound, label=r"$c_{1}=$" + r"${}$".format(c1), color=color)
 
@@ -89,7 +89,7 @@ class Function:
 
         return scaled**4 - 4 * scaled**2 + scaled
 
-    def derivative(self, x=None, derivative_cum=1):
+    def grad(self, x=None, derivative_cum=1):
         if self.no_grad:
             raise ValueError("You are given `no_grad=True`.")
         if self.x is None:
